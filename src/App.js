@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import AddProduct from "./components/Products/AddProduct";
+import ProductList from "./components/Products/ProductList";
 
 function App() {
+  const [prodList, setProdList] = useState([])
+
+  const addProductHandler = (pProduct, pPrice)=> {
+    setProdList((prevProdList)=>{
+      return [...prevProdList, {product: pProduct, price: pPrice}]
+    })
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddProduct onAddProduct={addProductHandler} />
+      <ProductList products={prodList}/>
     </div>
   );
 }
